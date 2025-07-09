@@ -6,6 +6,9 @@ import Login from './Login.jsx'
 import { Route, Routes } from 'react-router-dom';
 import Signup from './Signup.jsx'
 import AdminDashboard  from './adminDashboard.jsx'
+import UserDashboard from './UserDashboard.jsx'
+import IssueBooks from './IssueBooks.jsx'
+import BookStatus from './BookStatus.jsx'
 
 
 function App() {
@@ -16,7 +19,7 @@ function App() {
             role:'admin'
         },
         {
-            username:'member',
+            username:'member1',
             password:'12345',
             role:'member'
         }
@@ -59,6 +62,9 @@ function App() {
          <Route path='/signup' element={<Signup onSignup={handleSignup}/>} />
           <Route element={<Layout />}>
              <Route path="/admindashboard" element={<AdminDashboard  />} />
+             <Route path="/userDashboard" element={<UserDashboard  />} />\
+             <Route path="/issueBooks" element={<IssueBooks/>} />
+             <Route path="/bookStatus" element={<BookStatus/>} />
           </Route>
        </Routes>
      </div>

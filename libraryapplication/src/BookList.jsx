@@ -1,12 +1,18 @@
-import { useState } from 'react';
+
 import * as React from 'react';
 import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/GridLegacy';
 import {  Typography } from '@mui/material';
+import Button from '@mui/material/Button';
+import Stack from '@mui/material/Stack';
+import { useNavigate } from 'react-router-dom';
+
+
 const Item = styled(Paper)(({ theme }) => ({
-  backgroundColor: '#fff',
+  backgroundColor: '#ebebeb',
+  height:'120px',
   ...theme.typography.body2,
   padding: theme.spacing(2),
   textAlign: 'center',
@@ -16,18 +22,16 @@ const Item = styled(Paper)(({ theme }) => ({
   }),
 }));
 
-function BookList(){
-    const [books, setBooks] = useState([
-        { id: 1, title: 'Harry Potter', author: 'J. K. Rowling', status: 'Available', borrowedBy: null },
-        { id: 2, title: 'Adventures of Huckleberry Finn', author: 'Mark Twain', status: 'Borrowed', borrowedBy: 'member1' },
-        { id: 3, title: 'crime and punishment', author: 'Fyodor Dostoevsky', status: 'Available', borrowedBy: null },
-    ]);
-
-    function handlesearch(){
-        
-    }
+function BookList({ books , role}) {
+ const navigate = useNavigate(); 
+ function handleCheckStatus(book){
+    navigate('/bookStatus', { state: { book } });
+  };
+  function handleIssueBook(book){
+    navigate('/issueBooks', { state: { book } });
+  };
     return(
-        <Box sx={{ flexGrow: 1 , marginTop:4}}>
+        <Box sx={{ flexGrow: 1 , margin:4}}>
         <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
         {books.map((book, index) => (
           <Grid item xs={2} sm={4} md={4} key={book.id}>
@@ -35,6 +39,20 @@ function BookList(){
               <Typography variant="h6">{book.title}</Typography>
               <Typography variant="body2">Author: {book.author}</Typography>
               <Typography variant="body2">Status: {book.status}</Typography>
+               {  role === 'admin' && (
+                    <div style={{display: 'flex',flexDirection: 'row-reverse',justifyContent: 'space-around'}}>
+                         <Stack direction="row" spacing={4}>
+                            {book.status === 'Available' ? (
+                                <Button variant="contained" onClick={() => handleIssueBook(book)}>
+                                    Issue Book
+                                </Button>
+                                ) : <Button variant="contained" disabled>
+                                    Issue Book
+                                </Button>}
+                            <Button variant="contained" onClick={() => handleCheckStatus(book)}>Check Status</Button>
+                        </Stack>
+                    </div>
+                )}
             </Item>
           </Grid>
         ))}
@@ -42,4 +60,4 @@ function BookList(){
         </Box>
     )
 }
-  export default BookList
+  export default BookList;
