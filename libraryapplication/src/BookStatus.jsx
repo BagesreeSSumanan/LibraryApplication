@@ -24,8 +24,9 @@ function BookStatus() {
             <p>Title: {book.title}</p>
             <p>Author: {book.author}</p>
             <p>Status: {book.status}</p>
-            <p>Borrowed By: {book.borrowedby || "N/A"}</p>
+            <p>Borrowed By: {book.borrowedBy || "N/A"}</p>
             <p>Due Date: {book.dueDate || "N/A"}</p>
+            <p>Return Requested: {book.returnRequest ? 'Yes' : 'No'}</p>
         </div>
         
       </Box>

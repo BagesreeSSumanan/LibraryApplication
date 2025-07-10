@@ -4,9 +4,8 @@ import {
 } from '@mui/material';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import { useBooks } from './BooksContext';
-
-export default function ReturnRequestList() {
-  const { ReturnrequestedBooks , allbooks,setBooks,setFilteredBooks} = useBooks();
+function Borrowlist(){
+const {  BorrowrequestedBooks, allbooks,setBooks,setFilteredBooks} = useBooks();
 
     const handleAccept = (id) => {
         console.log('Accepted request ID:', id);
@@ -14,10 +13,10 @@ export default function ReturnRequestList() {
        
         const updatedBook = {
             ...book,
-            borrowedBy: null,
+            borrowedBy: book.borrowRequestby,
+            borrowRequest: null,
             dueDate: null,
-            status: 'Available',
-            returnRequest: false, 
+            status: 'Not Available',
         };
 
         const updatedBooks = allbooks.map(b =>
@@ -34,7 +33,7 @@ export default function ReturnRequestList() {
           Return Requests
         </Typography>
         <List>
-          {ReturnrequestedBooks.map((req) => (
+          {BorrowrequestedBooks.map((req) => (
             <ListItem key={req.id} sx={{ display: 'flex', alignItems: 'center' }}>
            
               <Avatar sx={{ mr: 2, bgcolor: 'success.main' }}>
@@ -63,3 +62,4 @@ export default function ReturnRequestList() {
     </Container>
   );
 }
+export default Borrowlist;

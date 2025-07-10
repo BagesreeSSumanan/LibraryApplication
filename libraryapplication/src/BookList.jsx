@@ -8,7 +8,7 @@ import {  Typography } from '@mui/material';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import { useNavigate } from 'react-router-dom';
-
+import { useBooks } from './BooksContext';
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: '#ebebeb',
@@ -24,6 +24,7 @@ const Item = styled(Paper)(({ theme }) => ({
 
 function BookList({ books , role, user}) {
  const navigate = useNavigate(); 
+ const {allbooks, setBooks,setFilteredBooks } = useBooks();
  function handleCheckStatus(book){
     navigate('/bookStatus', { state: { book } });
   };
@@ -32,6 +33,19 @@ function BookList({ books , role, user}) {
   };
   function handleReturn(book,user){
     navigate('/returnBooks', { state: { book, user } });
+  }
+   function handleBorrow(book,user){
+    const updatedBook = {
+      ...book,
+      borrowRequestby: user,
+      borrowRequest : true,
+    };
+    const updatedBooks = allbooks.map(b =>
+      b.id === book.id ? updatedBook : b
+    );
+      setBooks(updatedBooks);            
+      setFilteredBooks(updatedBooks);
+      setOpen(true);
   }
     return(
         <Box sx={{ flexGrow: 1 , margin:4}}>
@@ -59,8 +73,8 @@ function BookList({ books , role, user}) {
                 {  role === 'member' && (
                     <div style={{display: 'flex',flexDirection: 'row-reverse',justifyContent: 'space-around'}}>
                          <Stack direction="row" spacing={4}>
-                            {book.status === 'Available' ? (
-                                <Button variant="contained" >
+                            {book.status === 'Available' && book.borrowRequest === false ? (
+                                <Button variant="contained" onClick={() => handleBorrow(book,user)}>
                                     Borrow
                                 </Button>
                                 ) : <Button variant="contained" disabled>

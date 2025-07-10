@@ -53,8 +53,6 @@ function IssueBooks(){
       setBooks(updatedBooks);            
       setFilteredBooks(updatedBooks);
       setOpen(true);
-    
-    
   };
 
 return(

@@ -34,9 +34,11 @@ export default function Login({onLogin}) {
     const result = onLogin(data.get('username'), data.get('password'));
     if(result.success){
       if(result.role ==='admin'){
+        localStorage.setItem('role', 'admin'); 
         navigate('/admindashboard', { state: { user: result.username } });
       }
       else if (result.role ==='member'){
+        localStorage.setItem('role', 'member'); 
         navigate('/userDashboard', { state: { user: result.username } });
       }
     }
