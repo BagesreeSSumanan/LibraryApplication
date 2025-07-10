@@ -8,6 +8,12 @@ import { useState } from 'react';
 import Button from '@mui/material/Button';
 import { useNavigate } from 'react-router-dom';
 import { useBooks } from './BooksContext';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+
 
 
 function IssueBooks(){
@@ -15,6 +21,12 @@ function IssueBooks(){
     username: '',
     duedate: ''
   });
+    const navigate = useNavigate(); 
+    const [open, setOpen] = React.useState(false);
+        const handleClose = () => {
+      setOpen(false);
+      navigate('/adminDashboard');
+    };
    const handleChange = (e) => {
     const { name, value } = e.target;
     setFormValues((prev) => ({
@@ -27,7 +39,6 @@ function IssueBooks(){
      if (!book) {
     return <p>No book selected.</p>;
   }
-  const navigate = useNavigate(); 
   const {allbooks, books, setBooks,setFilteredBooks } = useBooks();
   const handleIssueBook = () => {
     const updatedBook = {
@@ -41,8 +52,8 @@ function IssueBooks(){
     );
       setBooks(updatedBooks);            
       setFilteredBooks(updatedBooks);
-    alert('Book Issued successfully ');
-    navigate('/adminDashboard');
+      setOpen(true);
+    
     
   };
 
@@ -50,6 +61,7 @@ return(
         <>
     <React.Fragment>
       <CssBaseline />
+      
       <Container fixed>
         <Box sx={{ height: 400  ,margin:10}} >
         <div style={{display: 'flex',flexDirection: 'column',justifyContent:'center', textAlign:'center'}}> 
@@ -78,6 +90,26 @@ return(
      </Button>
       </Box>
       </Container>
+       <Dialog
+            open={open}
+            onClose={handleClose}
+            aria-labelledby="alert-dialog-title"
+            aria-describedby="alert-dialog-description"
+          >
+            <DialogTitle id="alert-dialog-title">
+              {"Book issued"}
+            </DialogTitle>
+            <DialogContent>
+              <DialogContentText id="alert-dialog-description">
+                 Book issued successfully!.
+              </DialogContentText>
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={handleClose} autoFocus>
+                Ok
+              </Button>
+            </DialogActions>
+          </Dialog>
     </React.Fragment>
     </>
 )

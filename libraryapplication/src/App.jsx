@@ -9,7 +9,7 @@ import AdminDashboard  from './adminDashboard.jsx'
 import UserDashboard from './UserDashboard.jsx'
 import IssueBooks from './IssueBooks.jsx'
 import BookStatus from './BookStatus.jsx'
-
+import ReturnBooks from './returnBooks.jsx'
 
 function App() {
    const [users, setUsers] = useState([
@@ -22,6 +22,11 @@ function App() {
             username:'member1',
             password:'12345',
             role:'member'
+        },
+        {
+            username:'member2',
+            password:'12345',
+            role:'member'
         }
 
     ]);
@@ -32,7 +37,7 @@ function App() {
         );
         if (found) {
           setLoggedInUser(found);
-          return { success: true, role: found.role };
+          return { success: true, role: found.role, username: found.username };
         } else {
           return { success: false, role: null };
       }
@@ -55,9 +60,10 @@ function App() {
          <Route path='/signup' element={<Signup onSignup={handleSignup}/>} />
           <Route element={<Layout />}>
              <Route path="/admindashboard" element={<AdminDashboard  />} />
-             <Route path="/userDashboard" element={<UserDashboard  />} />\
+             <Route path="/userDashboard" element={<UserDashboard  />} />
              <Route path="/issueBooks" element={<IssueBooks/>} />
              <Route path="/bookStatus" element={<BookStatus/>} />
+             <Route path="/returnBooks" element={<ReturnBooks/>} />
           </Route>
        </Routes>
      </div>

@@ -22,7 +22,7 @@ const Item = styled(Paper)(({ theme }) => ({
   }),
 }));
 
-function BookList({ books , role}) {
+function BookList({ books , role, user}) {
  const navigate = useNavigate(); 
  function handleCheckStatus(book){
     navigate('/bookStatus', { state: { book } });
@@ -30,6 +30,9 @@ function BookList({ books , role}) {
   function handleIssueBook(book){
     navigate('/issueBooks', { state: { book } });
   };
+  function handleReturn(book,user){
+    navigate('/returnBooks', { state: { book, user } });
+  }
     return(
         <Box sx={{ flexGrow: 1 , margin:4}}>
         <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
@@ -50,6 +53,26 @@ function BookList({ books , role}) {
                                     Issue Book
                                 </Button>}
                             <Button variant="contained" onClick={() => handleCheckStatus(book)}>Check Status</Button>
+                        </Stack>
+                    </div>
+                )}
+                {  role === 'member' && (
+                    <div style={{display: 'flex',flexDirection: 'row-reverse',justifyContent: 'space-around'}}>
+                         <Stack direction="row" spacing={4}>
+                            {book.status === 'Available' ? (
+                                <Button variant="contained" >
+                                    Borrow
+                                </Button>
+                                ) : <Button variant="contained" disabled>
+                                    Borrow
+                                </Button>}
+                            {book.status === 'Not Available'  && user === book.borrowedBy && book.returnRequest === false? (
+                                <Button variant="contained"  onClick={() => handleReturn(book,user)}>
+                                    Return
+                                </Button>
+                                ) : <Button variant="contained" disabled >
+                                    Return
+                                </Button>}
                         </Stack>
                     </div>
                 )}

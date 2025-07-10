@@ -2,12 +2,12 @@ import BookList from "./BookList.jsx";
 import SearchBar from './SeachBar.jsx';
 import { useBooks } from './BooksContext';
 
-export default function AdminDashboard() {
+export default function AdminDashboard(user) {
     const { books, handleSearch } = useBooks();
   return (
     <>
         <SearchBar onSearch={handleSearch}/>
-        <BookList books={books} role="admin"/>
+        <BookList books={books} role="admin" user ={user}/>
     </>
   );
 }

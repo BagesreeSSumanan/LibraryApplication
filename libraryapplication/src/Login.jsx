@@ -31,17 +31,13 @@ export default function Login({onLogin}) {
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
-      username: data.get('username'),
-      password: data.get('password'),
-    });
     const result = onLogin(data.get('username'), data.get('password'));
     if(result.success){
       if(result.role ==='admin'){
-        navigate('/admindashboard');
+        navigate('/admindashboard', { state: { user: result.username } });
       }
       else if (result.role ==='member'){
-        navigate('/userDashboard');
+        navigate('/userDashboard', { state: { user: result.username } });
       }
     }
     else {
