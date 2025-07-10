@@ -14,8 +14,20 @@ import {
   Paper
 } from '@mui/material';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import { useNavigate } from 'react-router-dom';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+
 
 export default function Login({onLogin}) {
+   const navigate = useNavigate(); 
+  const [open, setOpen] = React.useState(false);
+      const handleClose = () => {
+    setOpen(false);
+  };
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -23,9 +35,18 @@ export default function Login({onLogin}) {
       username: data.get('username'),
       password: data.get('password'),
     });
-    const success = onLogin(data.get('username'), data.get('password'));
-    if (!success) {
-      alert("Invalid username or password");
+    const result = onLogin(data.get('username'), data.get('password'));
+    if(result.success){
+      if(result.role ==='admin'){
+        navigate('/admindashboard');
+      }
+      else if (result.role ==='member'){
+        navigate('/userDashboard');
+      }
+    }
+    else {
+       setOpen(true);
+      
     }
   };
 
@@ -85,6 +106,26 @@ export default function Login({onLogin}) {
           </Box>
         </Box>
       </Paper>
+      <Dialog
+            open={open}
+            onClose={handleClose}
+            aria-labelledby="alert-dialog-title"
+            aria-describedby="alert-dialog-description"
+          >
+            <DialogTitle id="alert-dialog-title">
+              {"Invalid username or password"}
+            </DialogTitle>
+            <DialogContent>
+              <DialogContentText id="alert-dialog-description">
+                 Please check your credentials and try again.
+              </DialogContentText>
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={handleClose} autoFocus>
+                Ok
+              </Button>
+            </DialogActions>
+          </Dialog>
     </Container>
   );
 }

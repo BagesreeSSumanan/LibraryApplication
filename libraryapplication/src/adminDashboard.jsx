@@ -1,6 +1,6 @@
 import BookList from "./BookList.jsx";
 import SearchBar from './SeachBar.jsx';
-import useBooks from "./useBooks.jsx"
+import { useBooks } from './BooksContext';
 
 export default function AdminDashboard() {
     const { books, handleSearch } = useBooks();

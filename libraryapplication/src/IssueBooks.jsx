@@ -6,6 +6,9 @@ import Container from '@mui/material/Container';
 import { TextField } from '@mui/material';
 import { useState } from 'react';
 import Button from '@mui/material/Button';
+import { useNavigate } from 'react-router-dom';
+import { useBooks } from './BooksContext';
+
 
 function IssueBooks(){
    const [formValues, setFormValues] = useState({
@@ -24,6 +27,8 @@ function IssueBooks(){
      if (!book) {
     return <p>No book selected.</p>;
   }
+  const navigate = useNavigate(); 
+  const {allbooks, books, setBooks,setFilteredBooks } = useBooks();
   const handleIssueBook = () => {
     const updatedBook = {
       ...book,
@@ -31,11 +36,16 @@ function IssueBooks(){
       dueDate: formValues.duedate,
       status: 'Not available'
     };
-
-    console.log("Bookissued:", updatedBook);
+    const updatedBooks = allbooks.map(b =>
+      b.id === book.id ? updatedBook : b
+    );
+      setBooks(updatedBooks);            
+      setFilteredBooks(updatedBooks);
     alert('Book Issued successfully ');
+    navigate('/adminDashboard');
     
   };
+
 return(
         <>
     <React.Fragment>

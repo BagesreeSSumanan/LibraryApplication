@@ -31,10 +31,10 @@ function App() {
         (u) => u.username === username && u.password === password
         );
         if (found) {
-          setLoggedInUser(found); // Save the user in state
-          return true;
+          setLoggedInUser(found);
+          return { success: true, role: found.role };
         } else {
-          return false;
+          return { success: false, role: null };
       }
     };
     const handleSignup = (username, password, role) => {
@@ -47,13 +47,6 @@ function App() {
       setUsers((prevUsers) => [...prevUsers, newUser]);
        return true;
     };
-
-  // return (
-  //   <>
-  //   <Login>
-  //   </Login>
-  //   </>
-  // )
   return (
     <>
     <div className="App">
