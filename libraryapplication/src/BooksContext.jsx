@@ -4,8 +4,8 @@ import React, { createContext, useContext, useState } from 'react';
 const BooksContext = createContext();
 
 const initialBooks = [
-  { id: 1, title: 'Harry Potter', author: 'J. K. Rowling', status: 'Available', borrowedBy: null, dueDate: null , returnRequest: false, borrowRequest:false, borrowRequestby :null},
-  { id: 2, title: 'Adventures of Huckleberry Finn', author: 'Mark Twain', status: 'Not Available', borrowedBy: 'member1', dueDate: '12/07/2025',returnRequest: false ,borrowRequest:false,borrowRequestby :null},
+  { id: 1, title: 'Harry Potter', author: 'J. K. Rowling', status: 'Available', borrowedBy: null, dueDate: null , returnRequest: false, borrowRequest:true, borrowRequestby :null},
+  { id: 2, title: 'Adventures of Huckleberry Finn', author: 'Mark Twain', status: 'Not Available', borrowedBy: 'member1', dueDate: '12/07/2025',returnRequest: true ,borrowRequest:false,borrowRequestby :null},
   { id: 3, title: 'Crime and Punishment', author: 'Fyodor Dostoevsky', status: 'Available', borrowedBy: null, dueDate: null ,returnRequest: false,borrowRequest:false,borrowRequestby :null},
 ];
 

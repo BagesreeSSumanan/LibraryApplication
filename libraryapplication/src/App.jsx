@@ -11,6 +11,7 @@ import IssueBooks from './IssueBooks.jsx'
 import BookStatus from './BookStatus.jsx'
 import ReturnBooks from './returnBooks.jsx'
 import ReturnRequestList from './ReturnRequestList.jsx'
+import Borrowlist from './Borrowlist.jsx'
 
 function App() {
    const [users, setUsers] = useState([
@@ -66,6 +67,7 @@ function App() {
              <Route path="/bookStatus" element={<BookStatus/>} />ReturnRequestList
              <Route path="/returnBooks" element={<ReturnBooks/>} />
              <Route path="/returnRequestList" element={<ReturnRequestList/>} />
+             <Route path="/borrowlist" element={<Borrowlist/>} />
           </Route>
        </Routes>
      </div>

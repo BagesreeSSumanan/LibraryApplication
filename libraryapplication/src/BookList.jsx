@@ -9,6 +9,12 @@ import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import { useNavigate } from 'react-router-dom';
 import { useBooks } from './BooksContext';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: '#ebebeb',
@@ -25,6 +31,7 @@ const Item = styled(Paper)(({ theme }) => ({
 function BookList({ books , role, user}) {
  const navigate = useNavigate(); 
  const {allbooks, setBooks,setFilteredBooks } = useBooks();
+ const [open, setOpen] = React.useState(false);
  function handleCheckStatus(book){
     navigate('/bookStatus', { state: { book } });
   };
@@ -34,6 +41,9 @@ function BookList({ books , role, user}) {
   function handleReturn(book,user){
     navigate('/returnBooks', { state: { book, user } });
   }
+  const handleClose = () => {
+      setOpen(false);
+    };
    function handleBorrow(book,user){
     const updatedBook = {
       ...book,
@@ -48,7 +58,8 @@ function BookList({ books , role, user}) {
       setOpen(true);
   }
     return(
-        <Box sx={{ flexGrow: 1 , margin:4}}>
+      <>
+      <Box sx={{ flexGrow: 1 , margin:4}}>
         <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
         {books.map((book, index) => (
           <Grid item xs={2} sm={4} md={4} key={book.id}>
@@ -95,6 +106,29 @@ function BookList({ books , role, user}) {
         ))}
         </Grid>
         </Box>
+        <Dialog
+            open={open}
+            onClose={handleClose}
+            aria-labelledby="alert-dialog-title"
+            aria-describedby="alert-dialog-description"
+          >
+            <DialogTitle id="alert-dialog-title">
+              {"Borrow Request"}
+            </DialogTitle>
+            <DialogContent>
+              <DialogContentText id="alert-dialog-description">
+                 Book Borrow request send successfully!.
+              </DialogContentText>
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={handleClose} autoFocus>
+                Ok
+              </Button>
+            </DialogActions>
+          </Dialog>
+      </>
+        
+        
     )
 }
   export default BookList;

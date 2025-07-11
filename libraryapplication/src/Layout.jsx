@@ -26,6 +26,7 @@ function Layout() {
   
   BookList: role === 'admin' ? 'admindashboard' : '/userDashboard',
   ReturnRequests: '/returnRequestList',
+  BorrowRequest: '/borrowlist'
 };
   const navigate = useNavigate(); 
   const handleUserMenuClick = (setting) => {
@@ -35,7 +36,7 @@ function Layout() {
       setAnchorElUser(null);
   };
   const pages = role === 'admin'
-  ? ['BookList', 'ReturnRequests']
+  ? ['BookList', 'ReturnRequests','BorrowRequest']
   : ['BookList'];
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);

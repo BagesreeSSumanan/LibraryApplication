@@ -30,7 +30,7 @@ const {  BorrowrequestedBooks, allbooks,setBooks,setFilteredBooks} = useBooks();
     <Container>
       <Box sx={{ flexGrow: 1, maxWidth: 752, mt: 4 }}>
         <Typography variant="h6" gutterBottom>
-          Return Requests
+          Borrow Requests
         </Typography>
         <List>
           {BorrowrequestedBooks.map((req) => (
@@ -44,7 +44,7 @@ const {  BorrowrequestedBooks, allbooks,setBooks,setFilteredBooks} = useBooks();
               <Box sx={{ flexGrow: 1 }}>
                 <Typography variant="subtitle1">{req.title}</Typography>
                 <Typography variant="body2" color="text.secondary">
-                  Borrowed by: {req.borrowedBy}
+                  Borrowed Requested by by: {req.borrowRequestby}
                 </Typography>
               </Box>
               <Button
